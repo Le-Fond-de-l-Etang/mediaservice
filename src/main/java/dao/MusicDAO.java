@@ -4,11 +4,17 @@ import beans.Music;
 import exceptions.AllMusicsAlreadyReturnedException;
 import exceptions.MusicNotFoundException;
 import exceptions.UnavailableMusicException;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import utils.HibernateUtil;
 
 import java.util.List;
 import java.util.Optional;
 
 public class MusicDAO {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+
     /**
      * Get a music from its id
      *
@@ -16,41 +22,36 @@ public class MusicDAO {
      * @return a music with the given id if there is one
      */
     Optional<Music> getMusic(String id) {
-
+        try {
+            Music music = session.get(Music.class, id);
+            return Optional.ofNullable(music);
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
     }
 
     /**
-     * Add a music with the given ISBN
+     * Add a music
      *
-     * @param isbn the ISBN
+     * @param music the music
      * @return the id of the added music if the isbn exists
      */
     Optional<String> addMusic(Music music) {
-
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.save(music);
+        session.getTransaction().commit();
     }
 
     /**
-     * Borrow a music from the library
-     *
-     * @param id the id of the borrowed music
-     * @param username the name of the user
-     * @throws MusicNotFoundException if no music in the library has the given id
-     * @throws UnavailableMusicException if all musics in the library with the given id have been borrowed
+     * Update a music
+     * @param music the music
      */
-    void borrowMusic(String id, String username) throws MusicNotFoundException, UnavailableMusicException {
-
-    }
-
-    /**
-     * Return a music back to the library
-     *
-     * @param id the id of the music to borrow
-     * @param username the name of the user
-     * @throws MusicNotFoundException if no music in the library has the given id
-     * @throws AllMusicsAlreadyReturnedException if all musics with the given id are already returned
-     */
-    void returnMusic(String id, String username) throws MusicNotFoundException, AllMusicsAlreadyReturnedException {
-
+    void updateMusic(Music music) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.saveOrUpdate(music);
+        session.getTransaction().commit();
     }
 
     /**
@@ -59,7 +60,9 @@ public class MusicDAO {
      * @return the musics
      */
     List<Music> getMusics() {
-
+        Criteria criteria = session.createCriteria(Music.class);
+        List<Music> musicList = (List<Music>) criteria.list();
+        return musicList;
     }
 
     /**
@@ -69,6 +72,10 @@ public class MusicDAO {
      * @return the musics matching the search term
      */
     List<Music> searchMusics(String searchTerm) {
-
+        List musics = session.createCriteria(Music.class).add(Restrictions.or(
+                Restrictions.like("author", "%"+searchTerm+"%"),
+                Restrictions.like("title", "%"+searchTerm+"%")
+                )).list();
+        return musics;
     }
 }

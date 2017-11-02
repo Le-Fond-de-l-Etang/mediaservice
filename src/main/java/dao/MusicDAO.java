@@ -41,6 +41,7 @@ public class MusicDAO {
         session.getTransaction().begin();
         session.save(music);
         session.getTransaction().commit();
+        return Optional.ofNullable(music.getIsbn());
     }
 
     /**

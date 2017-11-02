@@ -21,7 +21,7 @@ public class MusicDAO {
      * @param id the id of the wanter music
      * @return a music with the given id if there is one
      */
-    Optional<Music> getMusic(String id) {
+    public Optional<Music> getMusic(String id) {
         try {
             Music music = session.get(Music.class, id);
             return Optional.ofNullable(music);
@@ -36,7 +36,7 @@ public class MusicDAO {
      * @param music the music
      * @return the id of the added music if the isbn exists
      */
-    Optional<String> addMusic(Music music) {
+    public Optional<String> addMusic(Music music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(music);
@@ -48,7 +48,7 @@ public class MusicDAO {
      * Update a music
      * @param music the music
      */
-    void updateMusic(Music music) {
+    public void updateMusic(Music music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.saveOrUpdate(music);
@@ -60,7 +60,7 @@ public class MusicDAO {
      *
      * @return the musics
      */
-    List<Music> getMusics() {
+    public List<Music> getMusics() {
         Criteria criteria = session.createCriteria(Music.class);
         List<Music> musicList = (List<Music>) criteria.list();
         return musicList;
@@ -72,8 +72,9 @@ public class MusicDAO {
      * @param searchTerm the searched term
      * @return the musics matching the search term
      */
-    List<Music> searchMusics(String searchTerm) {
+    public List<Music> searchMusics(String searchTerm) {
         List musics = session.createCriteria(Music.class).add(Restrictions.or(
+                Restrictions.like("isbn", "%"+searchTerm+"%"),
                 Restrictions.like("author", "%"+searchTerm+"%"),
                 Restrictions.like("title", "%"+searchTerm+"%")
                 )).list();

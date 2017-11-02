@@ -1,14 +1,14 @@
 package beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="music")
 public class Music {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="id")
+    private int id;
     @Column(name="isbn")
     private String isbn;
     @Column(name="title")
@@ -17,6 +17,17 @@ public class Music {
     private String author;
     @Column(name="album")
     private String album;
+    @Column(name="borrowed")
+    private boolean borrowed;
+    @Column(name="borrower")
+    private String borrower;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getIsbn() {
         return isbn;
@@ -44,5 +55,19 @@ public class Music {
     }
     public void setAlbum(String album) {
         this.album = album;
+    }
+
+    public boolean isBorrowed() {
+        return borrowed;
+    }
+    public void setBorrowed(boolean borrowed) {
+        this.borrowed = borrowed;
+    }
+
+    public String getBorrower() {
+        return borrower;
+    }
+    public void setBorrower(String borrower) {
+        this.borrower = borrower;
     }
 }

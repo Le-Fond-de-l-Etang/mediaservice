@@ -2,9 +2,9 @@ package action;
 
 import beans.Music;
 import dao.MusicDAO;
-import exceptions.AllMusicsAlreadyReturnedException;
-import exceptions.MusicNotFoundException;
-import exceptions.UnavailableMusicException;
+import exceptions.MediaAlreadyReturnedException;
+import exceptions.MediaNotFoundException;
+import exceptions.UnavailableMediaException;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,17 +37,17 @@ public class MusicAction {
      *
      * @param id the id of the borrowed music
      * @param username the name of the user
-     * @throws MusicNotFoundException if no music in the library has the given id
-     * @throws UnavailableMusicException if all musics in the library with the given id have been borrowed
+     * @throws MediaNotFoundException if no music in the library has the given id
+     * @throws UnavailableMediaException if all musics in the library with the given id have been borrowed
      */
-    void borrowMusic(String id, String username) throws MusicNotFoundException, UnavailableMusicException {
+    void borrowMusic(String id, String username) throws MediaNotFoundException, UnavailableMediaException {
         Optional<Music> optionalMusic = musicDAO.getMusic(id);
         if (!optionalMusic.isPresent()) {
-            throw new MusicNotFoundException("Music " + id + " not found.");
+            throw new MediaNotFoundException("Music " + id + " not found.");
         }
         Music music = optionalMusic.get();
         if (music.isBorrowed()) {
-            throw new UnavailableMusicException("Music " + id + " already borrowed.");
+            throw new UnavailableMediaException("Music " + id + " already borrowed.");
         }
         music.setBorrowed(true);
         music.setBorrower(username);
@@ -59,17 +59,17 @@ public class MusicAction {
      *
      * @param id the id of the music to borrow
      * @param username the name of the user
-     * @throws MusicNotFoundException if no music in the library has the given id
-     * @throws AllMusicsAlreadyReturnedException if all musics with the given id are already returned
+     * @throws MediaNotFoundException if no music in the library has the given id
+     * @throws MediaAlreadyReturnedException if all musics with the given id are already returned
      */
-    void returnMusic(String id, String username) throws MusicNotFoundException, AllMusicsAlreadyReturnedException {
+    void returnMusic(String id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
         Optional<Music> optionalMusic = musicDAO.getMusic(id);
         if (!optionalMusic.isPresent()) {
-            throw new MusicNotFoundException("Music " + id + " not found.");
+            throw new MediaNotFoundException("Music " + id + " not found.");
         }
         Music music = optionalMusic.get();
         if (!music.isBorrowed() || !music.getBorrower().equals(username)) {
-            throw new AllMusicsAlreadyReturnedException("Music " + id + " not borrowed by " + username + ".");
+            throw new MediaAlreadyReturnedException("Music " + id + " not borrowed by " + username + ".");
         }
         music.setBorrowed(false);
         musicDAO.updateMusic(music);

@@ -15,7 +15,7 @@ public class MusicDAO {
     /**
      * Get a music from its id
      *
-     * @param id the id of the wanter music
+     * @param id the id of the wanted music
      * @return a music with the given id if there is one
      */
     public Optional<Music> getMusic(String id) {
@@ -33,12 +33,12 @@ public class MusicDAO {
      * @param music the music
      * @return the id of the added music if the ismn exists
      */
-    public Optional<String> addMusic(Music music) {
+    public Optional<Integer> addMusic(Music music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(music);
         session.getTransaction().commit();
-        return Optional.ofNullable(music.getIsmn());
+        return Optional.ofNullable(music.getId());
     }
 
     /**

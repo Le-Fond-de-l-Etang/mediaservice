@@ -1,9 +1,6 @@
 package dao;
 
 import beans.Music;
-import exceptions.AllMusicsAlreadyReturnedException;
-import exceptions.MusicNotFoundException;
-import exceptions.UnavailableMusicException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -34,14 +31,14 @@ public class MusicDAO {
      * Add a music
      *
      * @param music the music
-     * @return the id of the added music if the isbn exists
+     * @return the id of the added music if the ismn exists
      */
     public Optional<String> addMusic(Music music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(music);
         session.getTransaction().commit();
-        return Optional.ofNullable(music.getIsbn());
+        return Optional.ofNullable(music.getIsmn());
     }
 
     /**
@@ -67,14 +64,14 @@ public class MusicDAO {
     }
 
     /**
-     * Return all musics with an author, a title or an ISBN matching the search term
+     * Return all musics with an author, a title or an ISMN matching the search term
      *
      * @param searchTerm the searched term
      * @return the musics matching the search term
      */
     public List<Music> searchMusics(String searchTerm) {
         List musics = session.createCriteria(Music.class).add(Restrictions.or(
-                Restrictions.like("isbn", "%"+searchTerm+"%"),
+                Restrictions.like("ismn", "%"+searchTerm+"%"),
                 Restrictions.like("author", "%"+searchTerm+"%"),
                 Restrictions.like("title", "%"+searchTerm+"%")
                 )).list();

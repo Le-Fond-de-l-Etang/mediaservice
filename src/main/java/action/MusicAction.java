@@ -26,7 +26,7 @@ public class MusicAction {
      * Add a music
      *
      * @param music the music
-     * @return the id of the added music if the isbn exists
+     * @return the id of the added music if the ismn exists
      */
     Optional<String> addMusic(Music music) {
         return musicDAO.addMusic(music);
@@ -85,7 +85,7 @@ public class MusicAction {
     }
 
     /**
-     * Return all musics with an author, a title or an ISBN matching the search term
+     * Return all musics with an author, a title or an ISMN matching the search term
      *
      * @param searchTerm the searched term
      * @return the musics matching the search term

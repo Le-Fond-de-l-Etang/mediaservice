@@ -3,20 +3,18 @@ package beans;
 import javax.persistence.*;
 
 @Entity
-@Table(name="music")
-public class Music {
+@Table(name="tvshow")
+public class TVShow {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="id")
     private int id;
-    @Column(name="ismn")
-    private String ismn;
     @Column(name="title")
     private String title;
-    @Column(name="author")
-    private String author;
-    @Column(name="album")
-    private String album;
+    @Column(name="director")
+    private String director;
+    @Column(name="producer")
+    private String producer;
     @Column(name="borrowed")
     private boolean borrowed;
     @Column(name="borrower")
@@ -29,13 +27,6 @@ public class Music {
         this.id = id;
     }
 
-    public String getIsmn() {
-        return ismn;
-    }
-    public void setIsmn(String ismn) {
-        this.ismn = ismn;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -43,18 +34,18 @@ public class Music {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getDirector() {
+        return director;
     }
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
-    public String getAlbum() {
-        return album;
+    public String getProducer() {
+        return producer;
     }
-    public void setAlbum(String album) {
-        this.album = album;
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     public boolean isBorrowed() {

@@ -1,6 +1,6 @@
 package action;
 
-import beans.TVShow;
+import beans.TVShowEntity;
 import dao.TVShowDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
@@ -18,7 +18,7 @@ public class TVShowAction {
      * @param id the id of the wanted tvshow
      * @return a music with the given id if there is one
      */
-    Optional<TVShow> getTVShow(String id) {
+    public Optional<TVShowEntity> getTVShow(int id) {
         return tvshowDAO.getTVShow(id);
     }
 
@@ -28,7 +28,7 @@ public class TVShowAction {
      * @param tvshow the tvshow
      * @return the id of the added tvshow if success
      */
-    Optional<Integer> addTVShow(TVShow tvshow) {
+    public Optional<Integer> addTVShow(TVShowEntity tvshow) {
         return tvshowDAO.addTVShow(tvshow);
     }
 
@@ -40,14 +40,14 @@ public class TVShowAction {
      * @throws MediaNotFoundException if no tvshow in the library has the given id
      * @throws UnavailableMediaException if all tvshows in the library with the given id have been borrowed
      */
-    void borrowTVShow(String id, String username) throws MediaNotFoundException, UnavailableMediaException {
-        Optional<TVShow> optionalTVShow = tvshowDAO.getTVShow(id);
+    public void borrowTVShow(int id, String username) throws MediaNotFoundException, UnavailableMediaException {
+        Optional<TVShowEntity> optionalTVShow = tvshowDAO.getTVShow(id);
         if (!optionalTVShow.isPresent()) {
-            throw new MediaNotFoundException("TVShow " + id + " not found.");
+            throw new MediaNotFoundException("TVShowEntity " + id + " not found.");
         }
-        TVShow tvshow = optionalTVShow.get();
+        TVShowEntity tvshow = optionalTVShow.get();
         if (tvshow.isBorrowed()) {
-            throw new UnavailableMediaException("TVShow " + id + " already borrowed.");
+            throw new UnavailableMediaException("TVShowEntity " + id + " already borrowed.");
         }
         tvshow.setBorrowed(true);
         tvshow.setBorrower(username);
@@ -62,14 +62,14 @@ public class TVShowAction {
      * @throws MediaNotFoundException if no tvshow in the library has the given id
      * @throws MediaAlreadyReturnedException if all tvshows with the given id are already returned
      */
-    void returnTVShow(String id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
-        Optional<TVShow> optionalTVShow = tvshowDAO.getTVShow(id);
+    public void returnTVShow(int id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
+        Optional<TVShowEntity> optionalTVShow = tvshowDAO.getTVShow(id);
         if (!optionalTVShow.isPresent()) {
-            throw new MediaNotFoundException("TVShow " + id + " not found.");
+            throw new MediaNotFoundException("TVShowEntity " + id + " not found.");
         }
-        TVShow tvshow = optionalTVShow.get();
+        TVShowEntity tvshow = optionalTVShow.get();
         if (!tvshow.isBorrowed() || !tvshow.getBorrower().equals(username)) {
-            throw new MediaAlreadyReturnedException("TVShow " + id + " not borrowed by " + username + ".");
+            throw new MediaAlreadyReturnedException("TVShowEntity " + id + " not borrowed by " + username + ".");
         }
         tvshow.setBorrowed(false);
         tvshowDAO.updateTVShow(tvshow);
@@ -80,7 +80,7 @@ public class TVShowAction {
      *
      * @return the musics
      */
-    List<TVShow> getTVShows() {
+    public List<TVShowEntity> getTVShows() {
         return tvshowDAO.getTVShows();
     }
 
@@ -90,7 +90,7 @@ public class TVShowAction {
      * @param searchTerm the searched term
      * @return the tvshows matching the search term
      */
-    List<TVShow> searchTVShows(String searchTerm) {
+    public List<TVShowEntity> searchTVShows(String searchTerm) {
         return tvshowDAO.searchTVShows(searchTerm);
     }
 }

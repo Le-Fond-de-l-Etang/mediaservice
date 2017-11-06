@@ -1,6 +1,6 @@
 package dao;
 
-import beans.Movie;
+import beans.MovieEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -18,9 +18,9 @@ public class MovieDAO {
      * @param id the id of the wanted movie
      * @return a movie with the given id if there is one
      */
-    public Optional<Movie> getMovie(String id) {
+    public Optional<MovieEntity> getMovie(int id) {
         try {
-            Movie movie = session.get(Movie.class, id);
+            MovieEntity movie = session.get(MovieEntity.class, id);
             return Optional.ofNullable(movie);
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();
@@ -33,7 +33,7 @@ public class MovieDAO {
      * @param movie the movie
      * @return the id of the added movie if the ismn exists
      */
-    public Optional<Integer> addMovie(Movie movie) {
+    public Optional<Integer> addMovie(MovieEntity movie) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(movie);
@@ -45,7 +45,7 @@ public class MovieDAO {
      * Update a movie
      * @param movie the movie
      */
-    public void updateMovie(Movie movie) {
+    public void updateMovie(MovieEntity movie) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.saveOrUpdate(movie);
@@ -57,9 +57,9 @@ public class MovieDAO {
      *
      * @return the movies
      */
-    public List<Movie> getMovies() {
-        Criteria criteria = session.createCriteria(Movie.class);
-        List<Movie> movieList = (List<Movie>) criteria.list();
+    public List<MovieEntity> getMovies() {
+        Criteria criteria = session.createCriteria(MovieEntity.class);
+        List<MovieEntity> movieList = (List<MovieEntity>) criteria.list();
         return movieList;
     }
 
@@ -69,8 +69,8 @@ public class MovieDAO {
      * @param searchTerm the searched term
      * @return the movies matching the search term
      */
-    public List<Movie> searchMovies(String searchTerm) {
-        List movies = session.createCriteria(Movie.class).add(Restrictions.or(
+    public List<MovieEntity> searchMovies(String searchTerm) {
+        List movies = session.createCriteria(MovieEntity.class).add(Restrictions.or(
                 Restrictions.like("director", "%"+searchTerm+"%"),
                 Restrictions.like("producer", "%"+searchTerm+"%"),
                 Restrictions.like("title", "%"+searchTerm+"%")

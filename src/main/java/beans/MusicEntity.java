@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="music")
-public class Music {
+public class MusicEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
@@ -22,9 +22,9 @@ public class Music {
     @Column(name="borrower")
     private String borrower;
 
-    public Music() {
+    public MusicEntity() {
     }
-    public Music(String ismn, String title, String author, String album) {
+    public MusicEntity(String ismn, String title, String author, String album) {
         this.ismn = ismn;
         this.title = title;
         this.author = author;

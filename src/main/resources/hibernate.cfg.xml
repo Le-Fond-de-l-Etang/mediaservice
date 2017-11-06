@@ -11,7 +11,9 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.current_session_context_class">thread</property>
 
-        <mapping class="beans.Music"/>
+        <mapping class="beans.MusicEntity"/>
+        <mapping class="beans.MovieEntity"/>
+        <mapping class="beans.TVShowEntity"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -1,6 +1,6 @@
 package action;
 
-import beans.Movie;
+import beans.MovieEntity;
 import dao.MovieDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
@@ -18,7 +18,7 @@ public class MovieAction {
      * @param id the id of the wanted movie
      * @return a music with the given id if there is one
      */
-    Optional<Movie> getMovie(String id) {
+    public Optional<MovieEntity> getMovie(int id) {
         return movieDAO.getMovie(id);
     }
 
@@ -28,7 +28,7 @@ public class MovieAction {
      * @param movie the movie
      * @return the id of the added movie if success
      */
-    Optional<Integer> addMovie(Movie movie) {
+    public Optional<Integer> addMovie(MovieEntity movie) {
         return movieDAO.addMovie(movie);
     }
 
@@ -40,14 +40,14 @@ public class MovieAction {
      * @throws MediaNotFoundException if no movie in the library has the given id
      * @throws UnavailableMediaException if all movies in the library with the given id have been borrowed
      */
-    void borrowMovie(String id, String username) throws MediaNotFoundException, UnavailableMediaException {
-        Optional<Movie> optionalMovie = movieDAO.getMovie(id);
+    public void borrowMovie(int id, String username) throws MediaNotFoundException, UnavailableMediaException {
+        Optional<MovieEntity> optionalMovie = movieDAO.getMovie(id);
         if (!optionalMovie.isPresent()) {
-            throw new MediaNotFoundException("Movie " + id + " not found.");
+            throw new MediaNotFoundException("MovieEntity " + id + " not found.");
         }
-        Movie movie = optionalMovie.get();
+        MovieEntity movie = optionalMovie.get();
         if (movie.isBorrowed()) {
-            throw new UnavailableMediaException("Movie " + id + " already borrowed.");
+            throw new UnavailableMediaException("MovieEntity " + id + " already borrowed.");
         }
         movie.setBorrowed(true);
         movie.setBorrower(username);
@@ -62,14 +62,14 @@ public class MovieAction {
      * @throws MediaNotFoundException if no movie in the library has the given id
      * @throws MediaAlreadyReturnedException if all movies with the given id are already returned
      */
-    void returnMovie(String id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
-        Optional<Movie> optionalMovie = movieDAO.getMovie(id);
+    public void returnMovie(int id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
+        Optional<MovieEntity> optionalMovie = movieDAO.getMovie(id);
         if (!optionalMovie.isPresent()) {
-            throw new MediaNotFoundException("Movie " + id + " not found.");
+            throw new MediaNotFoundException("MovieEntity " + id + " not found.");
         }
-        Movie movie = optionalMovie.get();
+        MovieEntity movie = optionalMovie.get();
         if (!movie.isBorrowed() || !movie.getBorrower().equals(username)) {
-            throw new MediaAlreadyReturnedException("Movie " + id + " not borrowed by " + username + ".");
+            throw new MediaAlreadyReturnedException("MovieEntity " + id + " not borrowed by " + username + ".");
         }
         movie.setBorrowed(false);
         movieDAO.updateMovie(movie);
@@ -80,7 +80,7 @@ public class MovieAction {
      *
      * @return the musics
      */
-    List<Movie> getMovies() {
+    public List<MovieEntity> getMovies() {
         return movieDAO.getMovies();
     }
 
@@ -90,7 +90,7 @@ public class MovieAction {
      * @param searchTerm the searched term
      * @return the movies matching the search term
      */
-    List<Movie> searchMovies(String searchTerm) {
+    public List<MovieEntity> searchMovies(String searchTerm) {
         return movieDAO.searchMovies(searchTerm);
     }
 }

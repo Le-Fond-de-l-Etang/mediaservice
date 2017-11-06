@@ -1,6 +1,6 @@
 package dao;
 
-import beans.TVShow;
+import beans.TVShowEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -18,9 +18,9 @@ public class TVShowDAO {
      * @param id the id of the wanted tvshow
      * @return a tvshow with the given id if there is one
      */
-    public Optional<TVShow> getTVShow(String id) {
+    public Optional<TVShowEntity> getTVShow(int id) {
         try {
-            TVShow tvshow = session.get(TVShow.class, id);
+            TVShowEntity tvshow = session.get(TVShowEntity.class, id);
             return Optional.ofNullable(tvshow);
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();
@@ -33,7 +33,7 @@ public class TVShowDAO {
      * @param tvshow the tvshow
      * @return the id of the added tvshow if the ismn exists
      */
-    public Optional<Integer> addTVShow(TVShow tvshow) {
+    public Optional<Integer> addTVShow(TVShowEntity tvshow) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(tvshow);
@@ -45,7 +45,7 @@ public class TVShowDAO {
      * Update a tvshow
      * @param tvshow the tvshow
      */
-    public void updateTVShow(TVShow tvshow) {
+    public void updateTVShow(TVShowEntity tvshow) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.saveOrUpdate(tvshow);
@@ -57,9 +57,9 @@ public class TVShowDAO {
      *
      * @return the tvshows
      */
-    public List<TVShow> getTVShows() {
-        Criteria criteria = session.createCriteria(TVShow.class);
-        List<TVShow> tvshowList = (List<TVShow>) criteria.list();
+    public List<TVShowEntity> getTVShows() {
+        Criteria criteria = session.createCriteria(TVShowEntity.class);
+        List<TVShowEntity> tvshowList = (List<TVShowEntity>) criteria.list();
         return tvshowList;
     }
 
@@ -69,8 +69,8 @@ public class TVShowDAO {
      * @param searchTerm the searched term
      * @return the tvshows matching the search term
      */
-    public List<TVShow> searchTVShows(String searchTerm) {
-        List tvshows = session.createCriteria(TVShow.class).add(Restrictions.or(
+    public List<TVShowEntity> searchTVShows(String searchTerm) {
+        List tvshows = session.createCriteria(TVShowEntity.class).add(Restrictions.or(
                 Restrictions.like("director", "%"+searchTerm+"%"),
                 Restrictions.like("producer", "%"+searchTerm+"%"),
                 Restrictions.like("title", "%"+searchTerm+"%")

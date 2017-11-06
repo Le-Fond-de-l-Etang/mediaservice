@@ -1,6 +1,6 @@
 package dao;
 
-import beans.Music;
+import beans.MusicEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -18,9 +18,9 @@ public class MusicDAO {
      * @param id the id of the wanted music
      * @return a music with the given id if there is one
      */
-    public Optional<Music> getMusic(String id) {
+    public Optional<MusicEntity> getMusic(int id) {
         try {
-            Music music = session.get(Music.class, id);
+            MusicEntity music = session.get(MusicEntity.class, id);
             return Optional.ofNullable(music);
         } catch (IndexOutOfBoundsException e) {
             return Optional.empty();
@@ -33,7 +33,7 @@ public class MusicDAO {
      * @param music the music
      * @return the id of the added music if the ismn exists
      */
-    public Optional<Integer> addMusic(Music music) {
+    public Optional<Integer> addMusic(MusicEntity music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(music);
@@ -45,7 +45,7 @@ public class MusicDAO {
      * Update a music
      * @param music the music
      */
-    public void updateMusic(Music music) {
+    public void updateMusic(MusicEntity music) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.saveOrUpdate(music);
@@ -57,9 +57,9 @@ public class MusicDAO {
      *
      * @return the musics
      */
-    public List<Music> getMusics() {
-        Criteria criteria = session.createCriteria(Music.class);
-        List<Music> musicList = (List<Music>) criteria.list();
+    public List<MusicEntity> getMusics() {
+        Criteria criteria = session.createCriteria(MusicEntity.class);
+        List<MusicEntity> musicList = (List<MusicEntity>) criteria.list();
         return musicList;
     }
 
@@ -69,11 +69,12 @@ public class MusicDAO {
      * @param searchTerm the searched term
      * @return the musics matching the search term
      */
-    public List<Music> searchMusics(String searchTerm) {
-        List musics = session.createCriteria(Music.class).add(Restrictions.or(
+    public List<MusicEntity> searchMusics(String searchTerm) {
+        List musics = session.createCriteria(MusicEntity.class).add(Restrictions.or(
                 Restrictions.like("ismn", "%"+searchTerm+"%"),
+                Restrictions.like("title", "%"+searchTerm+"%"),
                 Restrictions.like("author", "%"+searchTerm+"%"),
-                Restrictions.like("title", "%"+searchTerm+"%")
+                Restrictions.like("album", "%"+searchTerm+"%")
                 )).list();
         return musics;
     }

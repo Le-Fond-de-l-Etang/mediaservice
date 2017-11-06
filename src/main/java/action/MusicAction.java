@@ -1,6 +1,6 @@
 package action;
 
-import beans.Music;
+import beans.MusicEntity;
 import dao.MusicDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
@@ -18,7 +18,7 @@ public class MusicAction {
      * @param id the id of the wanter music
      * @return a music with the given id if there is one
      */
-    Optional<Music> getMusic(String id) {
+    public Optional<MusicEntity> getMusic(int id) {
         return musicDAO.getMusic(id);
     }
 
@@ -28,7 +28,7 @@ public class MusicAction {
      * @param music the music
      * @return the id of the added music if the ismn exists
      */
-    Optional<String> addMusic(Music music) {
+    public Optional<Integer> addMusic(MusicEntity music) {
         return musicDAO.addMusic(music);
     }
 
@@ -40,12 +40,12 @@ public class MusicAction {
      * @throws MediaNotFoundException if no music in the library has the given id
      * @throws UnavailableMediaException if all musics in the library with the given id have been borrowed
      */
-    void borrowMusic(String id, String username) throws MediaNotFoundException, UnavailableMediaException {
-        Optional<Music> optionalMusic = musicDAO.getMusic(id);
+    public void borrowMusic(int id, String username) throws MediaNotFoundException, UnavailableMediaException {
+        Optional<MusicEntity> optionalMusic = musicDAO.getMusic(id);
         if (!optionalMusic.isPresent()) {
             throw new MediaNotFoundException("Music " + id + " not found.");
         }
-        Music music = optionalMusic.get();
+        MusicEntity music = optionalMusic.get();
         if (music.isBorrowed()) {
             throw new UnavailableMediaException("Music " + id + " already borrowed.");
         }
@@ -62,12 +62,12 @@ public class MusicAction {
      * @throws MediaNotFoundException if no music in the library has the given id
      * @throws MediaAlreadyReturnedException if all musics with the given id are already returned
      */
-    void returnMusic(String id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
-        Optional<Music> optionalMusic = musicDAO.getMusic(id);
+    public void returnMusic(int id, String username) throws MediaNotFoundException, MediaAlreadyReturnedException {
+        Optional<MusicEntity> optionalMusic = musicDAO.getMusic(id);
         if (!optionalMusic.isPresent()) {
             throw new MediaNotFoundException("Music " + id + " not found.");
         }
-        Music music = optionalMusic.get();
+        MusicEntity music = optionalMusic.get();
         if (!music.isBorrowed() || !music.getBorrower().equals(username)) {
             throw new MediaAlreadyReturnedException("Music " + id + " not borrowed by " + username + ".");
         }
@@ -80,7 +80,7 @@ public class MusicAction {
      *
      * @return the musics
      */
-    List<Music> getMusics() {
+    public List<MusicEntity> getMusics() {
         return musicDAO.getMusics();
     }
 
@@ -90,7 +90,7 @@ public class MusicAction {
      * @param searchTerm the searched term
      * @return the musics matching the search term
      */
-    List<Music> searchMusics(String searchTerm) {
+    public List<MusicEntity> searchMusics(String searchTerm) {
         return musicDAO.searchMusics(searchTerm);
     }
 }

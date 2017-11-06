@@ -15,10 +15,8 @@ CREATE TABLE `music` (
 
 CREATE TABLE `movie` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ismn` varchar(64) NOT NULL,
   `title` varchar(64) NOT NULL,
   `director` varchar(64) NOT NULL,
-  `producer` varchar(64) NOT NULL,
   `borrowed` boolean NOT NULL,
   `borrower` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
@@ -27,10 +25,8 @@ CREATE TABLE `movie` (
 
 CREATE TABLE `tvshow` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ismn` varchar(64) NOT NULL,
   `title` varchar(64) NOT NULL,
   `director` varchar(64) NOT NULL,
-  `producer` varchar(64) NOT NULL,
   `borrowed` boolean NOT NULL,
   `borrower` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),

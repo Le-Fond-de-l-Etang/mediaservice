@@ -13,12 +13,10 @@ public class MovieEntity {
     private String title;
     @Column(name="director")
     private String director;
-    @Column(name="producer")
-    private String producer;
     @Column(name="borrowed")
-    private boolean borrowed;
+    private boolean borrowed = false;
     @Column(name="borrower")
-    private String borrower;
+    private String borrower = "";
 
     public int getId() {
         return id;
@@ -39,13 +37,6 @@ public class MovieEntity {
     }
     public void setDirector(String director) {
         this.director = director;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-    public void setProducer(String producer) {
-        this.producer = producer;
     }
 
     public boolean isBorrowed() {

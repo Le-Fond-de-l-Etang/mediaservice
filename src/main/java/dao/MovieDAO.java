@@ -72,7 +72,6 @@ public class MovieDAO {
     public List<MovieEntity> searchMovies(String searchTerm) {
         List movies = session.createCriteria(MovieEntity.class).add(Restrictions.or(
                 Restrictions.like("director", "%"+searchTerm+"%"),
-                Restrictions.like("producer", "%"+searchTerm+"%"),
                 Restrictions.like("title", "%"+searchTerm+"%")
                 )).list();
         return movies;

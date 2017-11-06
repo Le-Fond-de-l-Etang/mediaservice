@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getMusicRequest>
+            <gs:id>3</gs:id>
+        </gs:getMusicRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

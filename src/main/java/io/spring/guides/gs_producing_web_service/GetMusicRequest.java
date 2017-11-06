@@ -10,7 +10,6 @@ package io.spring.guides.gs_producing_web_service;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="filter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +35,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "filter"
+    "id"
 })
-@XmlRootElement(name = "searchMusicRequest")
-public class SearchMusicRequest {
+@XmlRootElement(name = "getMusicRequest")
+public class GetMusicRequest {
 
-    @XmlElement(required = true)
-    protected String filter;
+    protected int id;
 
     /**
-     * Obtient la valeur de la propriété filter.
+     * Obtient la valeur de la propriété id.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getFilter() {
-        return filter;
+    public int getId() {
+        return id;
     }
 
     /**
-     * Définit la valeur de la propriété filter.
+     * Définit la valeur de la propriété id.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setFilter(String value) {
-        this.filter = value;
+    public void setId(int value) {
+        this.id = value;
     }
 
 }

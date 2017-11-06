@@ -1,0 +1,32 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="getMusicRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ismn" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMusicResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="music" type="tns:music"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="music">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="ismn" type="xs:int"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="album" type="xs:string"/>
+            <xs:element name="borrowed" type="xs:boolean"/>
+            <xs:element name="borrower" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+</xs:schema>

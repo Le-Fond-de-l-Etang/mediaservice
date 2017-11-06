@@ -18,9 +18,9 @@ public class MusicEntity {
     @Column(name="album")
     private String album;
     @Column(name="borrowed")
-    private boolean borrowed;
+    private boolean borrowed = false;
     @Column(name="borrower")
-    private String borrower;
+    private String borrower = "";
 
     public MusicEntity() {
     }
@@ -29,8 +29,6 @@ public class MusicEntity {
         this.title = title;
         this.author = author;
         this.album = album;
-        this.borrowed = false;
-        this.borrower = "";
     }
 
     public int getId() {

@@ -2,6 +2,7 @@ package server;
 
 import action.MusicAction;
 import beans.MusicEntity;
+import converter.MusicConverter;
 import io.spring.guides.gs_producing_web_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -33,11 +34,7 @@ public class MusicEndpoint {
         List<Music> musicList = musicList1.getMusic();
 
         for (MusicEntity musicEntity : musicEntityList) {
-            Music music = new Music();
-            music.setAlbum(musicEntity.getAlbum());
-            music.setIsmn(musicEntity.getIsmn());
-            music.setAuthor(musicEntity.getAuthor());
-            music.setTitle(musicEntity.getTitle());
+            Music music = MusicConverter.convertEntityToSoap(musicEntity);
             musicList.add(music);
         }
 
@@ -58,13 +55,20 @@ public class MusicEndpoint {
         musicEntity.setAlbum(request.getMusic().getAlbum());
         musicEntity.setIsmn(request.getMusic().getIsmn());
 
+        Music music = new Music();
 
         Optional<Integer> id = musicAction.addMusic(musicEntity);
         if (id.isPresent()) {
-            musicAction.getMusic(id.get());
-            getMusicResponse.setMusic();
-        }
+            musicEntity = musicAction.getMusic(id.get()).get();
 
+            music.setAlbum(musicEntity.getAlbum());
+            music.setIsmn(musicEntity.getIsmn());
+            music.setAuthor(musicEntity.getAuthor());
+            music.setTitle(musicEntity.getTitle());
+
+        }
+        getMusicResponse.setMusic(music);
+        return getMusicResponse;
     }
 
 }

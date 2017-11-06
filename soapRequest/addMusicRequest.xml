@@ -1,0 +1,18 @@
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:addMusicRequest>
+            <gs:music>
+                <gs:id>3</gs:id>
+                <gs:ismn>3</gs:ismn>
+                <gs:title>Losing my Religion</gs:title>
+                <gs:album>Out of time</gs:album>
+                <gs:author>REM</gs:author>
+                <gs:borrowed>1</gs:borrowed>
+                <gs:borrower>hugo</gs:borrower>
+               </gs:music>
+        </gs:addMusicRequest>
+    </soapenv:Body>
+</soapenv:Envelope>

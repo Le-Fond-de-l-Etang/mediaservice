@@ -18,6 +18,15 @@
     </xs:element>
 
 
+    <xs:element name="getMusicResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="music" type="tns:music"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
     <xs:element name="addMusicRequest">
        <xs:complexType>
            <xs:sequence>

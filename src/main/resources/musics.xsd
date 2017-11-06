@@ -1,28 +1,46 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
            targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
 
-    <xs:element name="getMusicRequest">
+    <xs:element name="searchMusicRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ismn" type="xs:int"/>
+                <xs:element name="filter" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getMusicResponse">
+    <xs:element name="searchMusicResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="music" type="tns:music"/>
+                <xs:element name="musics" type="tns:musicList"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+
+    <xs:element name="addMusicRequest">
+       <xs:complexType>
+           <xs:sequence>
+               <xs:element name="music" type="tns:music"></xs:element>
+           </xs:sequence>
+       </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="musicList">
+        <xs:sequence>
+            <xs:element type="tns:music" name="music" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+
+    </xs:complexType>
 
     <xs:complexType name="music">
         <xs:sequence>
-            <xs:element name="id" type="xs:string"/>
-            <xs:element name="ismn" type="xs:int"/>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="ismn" type="xs:string"/>
             <xs:element name="title" type="xs:string"/>
             <xs:element name="album" type="xs:string"/>
+            <xs:element name="author" type="xs:string"/>
             <xs:element name="borrowed" type="xs:boolean"/>
             <xs:element name="borrower" type="xs:string"/>
         </xs:sequence>

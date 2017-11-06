@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2017.11.06 à 09:40:42 AM CET 
+// Généré le : 2017.11.06 à 11:29:10 AM CET 
 //
 
 
@@ -10,6 +10,7 @@ package io.spring.guides.gs_producing_web_service;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="ismn" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="musics" type="{http://spring.io/guides/gs-producing-web-service}musicList"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,27 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "ismn"
+    "musics"
 })
-@XmlRootElement(name = "getMusicRequest")
-public class GetMusicRequest {
+@XmlRootElement(name = "searchMusicResponse")
+public class SearchMusicResponse {
 
-    protected int ismn;
+    @XmlElement(required = true)
+    protected MusicList musics;
 
     /**
-     * Obtient la valeur de la propriété ismn.
+     * Obtient la valeur de la propriété musics.
      * 
+     * @return
+     *     possible object is
+     *     {@link MusicList }
+     *     
      */
-    public int getIsmn() {
-        return ismn;
+    public MusicList getMusics() {
+        return musics;
     }
 
     /**
-     * Définit la valeur de la propriété ismn.
+     * Définit la valeur de la propriété musics.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link MusicList }
+     *     
      */
-    public void setIsmn(int value) {
-        this.ismn = value;
+    public void setMusics(MusicList value) {
+        this.musics = value;
     }
 
 }

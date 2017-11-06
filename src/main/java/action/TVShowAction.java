@@ -1,7 +1,7 @@
 package action;
 
 import beans.TVShowEntity;
-import dao.TVShowDAO;
+import database.dao.TVShowDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;

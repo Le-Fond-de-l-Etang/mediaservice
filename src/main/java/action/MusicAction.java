@@ -1,11 +1,10 @@
 package action;
 
 import beans.MusicEntity;
-import dao.MusicDAO;
+import database.dao.MusicDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

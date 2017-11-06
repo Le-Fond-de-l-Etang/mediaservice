@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name="music")
 public class Music {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
     @Column(name="ismn")
@@ -21,6 +21,17 @@ public class Music {
     private boolean borrowed;
     @Column(name="borrower")
     private String borrower;
+
+    public Music() {
+    }
+    public Music(String ismn, String title, String author, String album) {
+        this.ismn = ismn;
+        this.title = title;
+        this.author = author;
+        this.album = album;
+        this.borrowed = false;
+        this.borrower = "";
+    }
 
     public int getId() {
         return id;

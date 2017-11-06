@@ -3,10 +3,10 @@ package beans;
 import javax.persistence.*;
 
 @Entity
-@Table(name="tvshow")
-public class TVShow {
+@Table(name="movie")
+public class Movie {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
     @Column(name="title")

@@ -67,7 +67,7 @@ public class TVShowController {
      * @param username Username of the borrower
      * @return TVShow, if borrowed
      */
-    @RequestMapping(value = "/tvshow/{id}/borrow")
+    @RequestMapping(method = RequestMethod.POST, value = "/tvshow/{id}/borrow")
     public ResponseEntity<TVShowEntity> borrowTVShow(@PathVariable int id, @RequestParam(value="username") String username) {
         try {
             tvshowaction.borrowTVShow(id, username);
@@ -90,7 +90,7 @@ public class TVShowController {
      * @param username Username of the borrower
      * @return TVShow, if returned
      */
-    @RequestMapping(value = "/tvshow/{id}/return")
+    @RequestMapping(method = RequestMethod.POST, value = "/tvshow/{id}/return")
     public ResponseEntity<TVShowEntity> returnTVShow(@PathVariable int id, @RequestParam(value="username") String username) {
         try {
             tvshowaction.returnTVShow(id, username);

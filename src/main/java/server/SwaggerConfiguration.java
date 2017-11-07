@@ -16,7 +16,7 @@ public class SwaggerConfiguration {
     public Docket movieApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.basePackage("server"))
-                .paths(regex("/movie.*"))
+                .paths(regex("(/movie.*)|(/tvshow.*)"))
                 .build();
     }
 }

@@ -69,7 +69,7 @@ public class MovieController {
      * @param username Username of the borrower
      * @return Movie, if borrowed
      */
-    @RequestMapping(value = "/movie/{id}/borrow")
+    @RequestMapping(method = RequestMethod.POST, value = "/movie/{id}/borrow")
     public ResponseEntity<MovieEntity> borrowMovie(@PathVariable int id, @RequestParam(value="username") String username) {
         try {
             movieAction.borrowMovie(id, username);
@@ -92,7 +92,7 @@ public class MovieController {
      * @param username Username of the borrower
      * @return Movie, if returned
      */
-    @RequestMapping(value = "/movie/{id}/return")
+    @RequestMapping(method = RequestMethod.POST, value = "/movie/{id}/return")
     public ResponseEntity<MovieEntity> returnMovie(@PathVariable int id, @RequestParam(value="username") String username) {
         try {
             movieAction.returnMovie(id, username);

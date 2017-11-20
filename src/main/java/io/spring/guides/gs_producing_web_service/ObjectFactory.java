@@ -1,8 +1,8 @@
 //
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2017.11.07 à 09:37:47 AM CET 
+// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source.
+// Généré le : 2017.11.20 à 02:22:00 PM CET
 //
 
 
@@ -37,35 +37,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SearchMusicRequest }
+     * Create an instance of {@link GetMusicsRequest }
      * 
      */
-    public SearchMusicRequest createSearchMusicRequest() {
-        return new SearchMusicRequest();
+    public GetMusicsRequest createGetMusicsRequest() {
+        return new GetMusicsRequest();
     }
 
     /**
-     * Create an instance of {@link SearchMusicResponse }
+     * Create an instance of {@link ReturnMusicRequest }
      * 
      */
-    public SearchMusicResponse createSearchMusicResponse() {
-        return new SearchMusicResponse();
+    public ReturnMusicRequest createReturnMusicRequest() {
+        return new ReturnMusicRequest();
     }
 
     /**
-     * Create an instance of {@link MusicList }
+     * Create an instance of {@link SingleMusicResponse }
      * 
      */
-    public MusicList createMusicList() {
-        return new MusicList();
-    }
-
-    /**
-     * Create an instance of {@link GetMusicResponse }
-     * 
-     */
-    public GetMusicResponse createGetMusicResponse() {
-        return new GetMusicResponse();
+    public SingleMusicResponse createSingleMusicResponse() {
+        return new SingleMusicResponse();
     }
 
     /**
@@ -74,6 +66,46 @@ public class ObjectFactory {
      */
     public Music createMusic() {
         return new Music();
+    }
+
+    /**
+     * Create an instance of {@link BorrowMusicRequest }
+     * 
+     */
+    public BorrowMusicRequest createBorrowMusicRequest() {
+        return new BorrowMusicRequest();
+    }
+
+    /**
+     * Create an instance of {@link SearchMusicRequest }
+     * 
+     */
+    public SearchMusicRequest createSearchMusicRequest() {
+        return new SearchMusicRequest();
+    }
+
+    /**
+     * Create an instance of {@link GetMusicRequest }
+     * 
+     */
+    public GetMusicRequest createGetMusicRequest() {
+        return new GetMusicRequest();
+    }
+
+    /**
+     * Create an instance of {@link MultipleMusicResponse }
+     * 
+     */
+    public MultipleMusicResponse createMultipleMusicResponse() {
+        return new MultipleMusicResponse();
+    }
+
+    /**
+     * Create an instance of {@link MusicList }
+     * 
+     */
+    public MusicList createMusicList() {
+        return new MusicList();
     }
 
     /**

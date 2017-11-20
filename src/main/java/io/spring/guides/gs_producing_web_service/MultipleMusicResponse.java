@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="filter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="musics" type="{http://spring.io/guides/gs-producing-web-service}musicList"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "filter"
+    "musics"
 })
-@XmlRootElement(name = "searchMusicRequest")
-public class SearchMusicRequest {
+@XmlRootElement(name = "MultipleMusicResponse")
+public class MultipleMusicResponse {
 
     @XmlElement(required = true)
-    protected String filter;
+    protected MusicList musics;
 
     /**
-     * Obtient la valeur de la propriété filter.
+     * Obtient la valeur de la propriété musics.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link MusicList }
      *     
      */
-    public String getFilter() {
-        return filter;
+    public MusicList getMusics() {
+        return musics;
     }
 
     /**
-     * Définit la valeur de la propriété filter.
+     * Définit la valeur de la propriété musics.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link MusicList }
      *     
      */
-    public void setFilter(String value) {
-        this.filter = value;
+    public void setMusics(MusicList value) {
+        this.musics = value;
     }
 
 }

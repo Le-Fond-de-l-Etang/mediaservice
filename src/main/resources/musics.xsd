@@ -8,8 +8,44 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
+    <xs:element name="getMusicsRequest">
+        <xs:complexType/>
+    </xs:element>
 
-    <xs:element name="searchMusicResponse">
+    <xs:element name="getMusicRequest">
+        <xs:complexType>
+            <xs:sequence><xs:element name="id" type="xs:int"></xs:element></xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addMusicRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="music" type="tns:music"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowMusicRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"></xs:element>
+                <xs:element name="username" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="returnMusicRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"></xs:element>
+                <xs:element name="username" type="xs:string"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="MultipleMusicResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="musics" type="tns:musicList"/>
@@ -18,7 +54,7 @@
     </xs:element>
 
 
-    <xs:element name="getMusicResponse">
+    <xs:element name="singleMusicResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="music" type="tns:music"/>
@@ -27,13 +63,7 @@
     </xs:element>
 
 
-    <xs:element name="addMusicRequest">
-       <xs:complexType>
-           <xs:sequence>
-               <xs:element name="music" type="tns:music"></xs:element>
-           </xs:sequence>
-       </xs:complexType>
-    </xs:element>
+   
 
 
     <xs:complexType name="musicList">

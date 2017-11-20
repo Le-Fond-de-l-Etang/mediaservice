@@ -1,8 +1,8 @@
 //
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source.
-// Généré le : 2017.11.20 à 02:22:00 PM CET
+// Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
+// Généré le : 2017.11.20 à 02:22:00 PM CET 
 //
 
 
@@ -25,7 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="filter" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,36 +37,54 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "filter"
+    "id",
+    "username"
 })
-@XmlRootElement(name = "searchMusicRequest")
-public class SearchMusicRequest {
+@XmlRootElement(name = "returnMusicRequest")
+public class ReturnMusicRequest {
 
+    protected int id;
     @XmlElement(required = true)
-    protected String filter;
+    protected String username;
 
     /**
-     * Obtient la valeur de la propriété filter.
+     * Obtient la valeur de la propriété id.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Définit la valeur de la propriété id.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété username.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getFilter() {
-        return filter;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * Définit la valeur de la propriété filter.
+     * Définit la valeur de la propriété username.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setFilter(String value) {
-        this.filter = value;
+    public void setUsername(String value) {
+        this.username = value;
     }
 
 }

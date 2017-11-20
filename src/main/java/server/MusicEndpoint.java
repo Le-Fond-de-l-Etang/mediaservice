@@ -3,6 +3,9 @@ package server;
 import action.MusicAction;
 import beans.MusicEntity;
 import converter.MusicConverter;
+import exceptions.MediaAlreadyReturnedException;
+import exceptions.MediaNotFoundException;
+import exceptions.UnavailableMediaException;
 import io.spring.guides.gs_producing_web_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -27,8 +30,8 @@ public class MusicEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "searchMusicRequest")
     @ResponsePayload
-    public SearchMusicResponse getMusic(@RequestPayload SearchMusicRequest request) {
-        SearchMusicResponse response = new SearchMusicResponse();
+    public MultipleMusicResponse searchMusic(@RequestPayload SearchMusicRequest request) {
+        MultipleMusicResponse response = new MultipleMusicResponse();
         List<MusicEntity> musicEntityList = musicAction.searchMusics(request.getFilter());
         MusicList musicList1 = new MusicList();
         List<Music> musicList = musicList1.getMusic();
@@ -44,10 +47,55 @@ public class MusicEndpoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMusicsRequest")
+    @ResponsePayload
+    public MultipleMusicResponse getMusics(@RequestPayload GetMusicsRequest request) {
+        MultipleMusicResponse response = new MultipleMusicResponse();
+        MusicList musicList1 = new MusicList();
+        List<Music> musicList = musicList1.getMusic();
+
+        for (MusicEntity musicEntity : musicAction.getMusics()) {
+            Music music = MusicConverter.convertEntityToSoap(musicEntity);
+            musicList.add(music);
+        }
+
+
+        response.setMusics(musicList1);
+
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getMusicRequest")
+    @ResponsePayload
+    public SingleMusicResponse getMusic(@RequestPayload GetMusicRequest request) {
+       MusicAction musicAction = new MusicAction();
+        SingleMusicResponse singleMusicResponse = new SingleMusicResponse();
+        Optional<MusicEntity> musicEntityOptional = musicAction.getMusic(request.getId());
+        if(musicEntityOptional.isPresent()){
+            Music music = MusicConverter.convertEntityToSoap(musicEntityOptional.get());
+            singleMusicResponse.setMusic(music);
+        }
+
+        return singleMusicResponse;
+    }
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI,localPart = "borrowMusicRequest")
+public void borrowMusic(@RequestPayload BorrowMusicRequest request) throws MediaNotFoundException, UnavailableMediaException{
+        MusicAction musicAction = new MusicAction();
+        musicAction.borrowMusic(request.getId(),request.getUsername());
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI,localPart = "returnMusicRequest")
+    public void returnMusic(@RequestPayload ReturnMusicRequest request) throws MediaNotFoundException, MediaAlreadyReturnedException{
+        MusicAction musicAction = new MusicAction();
+        musicAction.returnMusic(request.getId(),request.getUsername());
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addMusicRequest")
     @ResponsePayload
-    public GetMusicResponse addMusic(@RequestPayload AddMusicRequest request) {
-        GetMusicResponse getMusicResponse = new GetMusicResponse();
+    public SingleMusicResponse addMusic(@RequestPayload AddMusicRequest request) {
+        SingleMusicResponse getMusicResponse = new SingleMusicResponse();
         MusicEntity musicEntity = new MusicEntity();
 
         musicEntity.setAuthor(request.getMusic().getAuthor());

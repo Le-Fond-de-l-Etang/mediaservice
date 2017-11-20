@@ -40,7 +40,7 @@ public class TVShowController {
      * @return List of tvshows
      */
     @RequestMapping(method = RequestMethod.GET, value = "/tvshow")
-    public List<TVShowEntity> searchTVShows(@RequestParam(value="filter", defaultValue="") String filter) {
+    public List<TVShowEntity> searchTVShows(@RequestParam(value="filter", defaultValue="", required=false) String filter) {
         return tvshowaction.searchTVShows(filter);
     }
 

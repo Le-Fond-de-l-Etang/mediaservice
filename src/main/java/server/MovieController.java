@@ -42,7 +42,7 @@ public class MovieController {
      * @return List of movies
      */
     @RequestMapping(method = RequestMethod.GET, value = "/movie")
-    public List<MovieEntity> searchMovies(@RequestParam(value="filter", defaultValue="") String filter) {
+    public List<MovieEntity> searchMovies(@RequestParam(value="filter", defaultValue="", required=false) String filter) {
         return movieAction.searchMovies(filter);
     }
 

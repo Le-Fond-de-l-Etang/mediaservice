@@ -1,5 +1,6 @@
 package server.controller;
 
+import action.LoginAction;
 import action.MovieAction;
 import data.beans.MovieEntity;
 import exceptions.MediaAlreadyReturnedException;
@@ -50,14 +51,18 @@ public class MovieController {
      * @return Movie, if added
      */
     @RequestMapping(method = RequestMethod.POST, value = "/movie")
-    public ResponseEntity<MovieEntity> addMovie(@RequestBody MovieEntity movie) {
-        movieAction.addMovie(movie);
-        int id = movie.getId();
-        Optional<MovieEntity> persistedMovie = movieAction.getMovie(id);
-        if (persistedMovie.isPresent()) {
-            return new ResponseEntity<>(persistedMovie.get(), HttpStatus.ACCEPTED);
+    public ResponseEntity<MovieEntity> addMovie(@RequestBody MovieEntity movie, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            movieAction.addMovie(movie);
+            int id = movie.getId();
+            Optional<MovieEntity> persistedMovie = movieAction.getMovie(id);
+            if (persistedMovie.isPresent()) {
+                return new ResponseEntity<>(persistedMovie.get(), HttpStatus.ACCEPTED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -68,19 +73,23 @@ public class MovieController {
      * @return Movie, if borrowed
      */
     @RequestMapping(method = RequestMethod.POST, value = "/movie/{id}/borrow")
-    public ResponseEntity<MovieEntity> borrowMovie(@PathVariable int id, @RequestParam(value="username") String username) {
-        try {
-            movieAction.borrowMovie(id, username);
-            Optional<MovieEntity> movie = movieAction.getMovie(id);
-            if (movie.isPresent()) {
-                return new ResponseEntity<>(movie.get(), HttpStatus.ACCEPTED);
-            } else {
+    public ResponseEntity<MovieEntity> borrowMovie(@PathVariable int id, @RequestParam(value="username") String username, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            try {
+                movieAction.borrowMovie(id, username);
+                Optional<MovieEntity> movie = movieAction.getMovie(id);
+                if (movie.isPresent()) {
+                    return new ResponseEntity<>(movie.get(), HttpStatus.ACCEPTED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (MediaNotFoundException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (UnavailableMediaException e) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-        } catch (MediaNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (UnavailableMediaException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -91,19 +100,23 @@ public class MovieController {
      * @return Movie, if returned
      */
     @RequestMapping(method = RequestMethod.POST, value = "/movie/{id}/return")
-    public ResponseEntity<MovieEntity> returnMovie(@PathVariable int id, @RequestParam(value="username") String username) {
-        try {
-            movieAction.returnMovie(id, username);
-            Optional<MovieEntity> movie = movieAction.getMovie(id);
-            if (movie.isPresent()) {
-                return new ResponseEntity<>(movie.get(), HttpStatus.ACCEPTED);
-            } else {
+    public ResponseEntity<MovieEntity> returnMovie(@PathVariable int id, @RequestParam(value="username") String username, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            try {
+                movieAction.returnMovie(id, username);
+                Optional<MovieEntity> movie = movieAction.getMovie(id);
+                if (movie.isPresent()) {
+                    return new ResponseEntity<>(movie.get(), HttpStatus.ACCEPTED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (MediaNotFoundException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (MediaAlreadyReturnedException e) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-        } catch (MediaNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (MediaAlreadyReturnedException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 }

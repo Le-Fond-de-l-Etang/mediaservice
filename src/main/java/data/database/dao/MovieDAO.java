@@ -1,10 +1,10 @@
-package database.dao;
+package data.database.dao;
 
-import beans.MovieEntity;
+import data.beans.MovieEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
-import database.utils.HibernateUtil;
+import data.database.utils.HibernateUtil;
 
 import java.util.List;
 import java.util.Optional;

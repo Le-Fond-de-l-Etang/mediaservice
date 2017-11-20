@@ -1,6 +1,6 @@
-package converter;
+package data.converter;
 
-import beans.MusicEntity;
+import data.beans.MusicEntity;
 import io.spring.guides.gs_producing_web_service.Music;
 
 public class MusicConverter {

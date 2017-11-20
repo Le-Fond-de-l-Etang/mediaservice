@@ -1,9 +1,7 @@
-package server;
+package server.controller;
 
 import action.MovieAction;
-import action.MusicAction;
-import beans.MovieEntity;
-import beans.MusicEntity;
+import data.beans.MovieEntity;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;

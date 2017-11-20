@@ -1,7 +1,7 @@
 package action;
 
-import beans.MovieEntity;
-import database.dao.MovieDAO;
+import data.beans.MovieEntity;
+import data.database.dao.MovieDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;

@@ -1,7 +1,7 @@
 package action;
 
-import beans.MusicEntity;
-import database.dao.MusicDAO;
+import data.beans.MusicEntity;
+import data.database.dao.MusicDAO;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;

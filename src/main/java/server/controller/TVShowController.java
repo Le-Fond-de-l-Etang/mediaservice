@@ -1,7 +1,7 @@
-package server;
+package server.controller;
 
 import action.TVShowAction;
-import beans.TVShowEntity;
+import data.beans.TVShowEntity;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;

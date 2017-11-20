@@ -1,8 +1,8 @@
-package server;
+package server.controller;
 
 import action.MusicAction;
-import beans.MusicEntity;
-import converter.MusicConverter;
+import data.beans.MusicEntity;
+import data.converter.MusicConverter;
 import exceptions.MediaAlreadyReturnedException;
 import exceptions.MediaNotFoundException;
 import exceptions.UnavailableMediaException;
@@ -13,7 +13,6 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

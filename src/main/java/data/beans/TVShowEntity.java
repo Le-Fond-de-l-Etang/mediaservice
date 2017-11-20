@@ -1,10 +1,10 @@
-package beans;
+package data.beans;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="movie")
-public class MovieEntity {
+@Table(name="tvshow")
+public class TVShowEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="id")

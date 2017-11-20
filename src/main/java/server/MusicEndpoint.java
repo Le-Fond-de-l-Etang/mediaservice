@@ -3,6 +3,9 @@ package server;
 import action.MusicAction;
 import beans.MusicEntity;
 import converter.MusicConverter;
+import exceptions.MediaAlreadyReturnedException;
+import exceptions.MediaNotFoundException;
+import exceptions.UnavailableMediaException;
 import io.spring.guides.gs_producing_web_service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -76,6 +79,18 @@ public class MusicEndpoint {
         return singleMusicResponse;
     }
 
+
+    @PayloadRoot(namespace = NAMESPACE_URI,localPart = "borrowMusicRequest")
+public void borrowMusic(@RequestPayload BorrowMusicRequest request) throws MediaNotFoundException, UnavailableMediaException{
+        MusicAction musicAction = new MusicAction();
+        musicAction.borrowMusic(request.getId(),request.getUsername());
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI,localPart = "returnMusicRequest")
+    public void returnMusic(@RequestPayload ReturnMusicRequest request) throws MediaNotFoundException, MediaAlreadyReturnedException{
+        MusicAction musicAction = new MusicAction();
+        musicAction.returnMusic(request.getId(),request.getUsername());
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addMusicRequest")
     @ResponsePayload

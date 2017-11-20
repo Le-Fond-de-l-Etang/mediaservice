@@ -10,6 +10,7 @@ package io.spring.guides.gs_producing_web_service;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -25,6 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,12 +37,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id"
+    "id",
+    "username"
 })
-@XmlRootElement(name = "getMusicRequest")
-public class GetMusicRequest {
+@XmlRootElement(name = "borrowMusicRequest")
+public class BorrowMusicRequest {
 
     protected int id;
+    @XmlElement(required = true)
+    protected String username;
 
     /**
      * Obtient la valeur de la propriété id.
@@ -56,6 +61,30 @@ public class GetMusicRequest {
      */
     public void setId(int value) {
         this.id = value;
+    }
+
+    /**
+     * Obtient la valeur de la propriété username.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Définit la valeur de la propriété username.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUsername(String value) {
+        this.username = value;
     }
 
 }

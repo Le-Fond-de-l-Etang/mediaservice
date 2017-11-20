@@ -2,7 +2,7 @@
 // Ce fichier a été généré par l'implémentation de référence JavaTM Architecture for XML Binding (JAXB), v2.2.7 
 // Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Toute modification apportée à ce fichier sera perdue lors de la recompilation du schéma source. 
-// Généré le : 2017.11.06 à 01:52:35 PM CET 
+// Généré le : 2017.11.06 à 02:30:13 PM CET 
 //
 
 
@@ -45,6 +45,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ReturnMusicRequest }
+     * 
+     */
+    public ReturnMusicRequest createReturnMusicRequest() {
+        return new ReturnMusicRequest();
+    }
+
+    /**
      * Create an instance of {@link SingleMusicResponse }
      * 
      */
@@ -58,6 +66,14 @@ public class ObjectFactory {
      */
     public Music createMusic() {
         return new Music();
+    }
+
+    /**
+     * Create an instance of {@link BorrowMusicRequest }
+     * 
+     */
+    public BorrowMusicRequest createBorrowMusicRequest() {
+        return new BorrowMusicRequest();
     }
 
     /**

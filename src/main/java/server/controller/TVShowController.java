@@ -1,5 +1,6 @@
 package server.controller;
 
+import action.LoginAction;
 import action.TVShowAction;
 import data.beans.TVShowEntity;
 import exceptions.MediaAlreadyReturnedException;
@@ -50,14 +51,18 @@ public class TVShowController {
      * @return TVShow, if added
      */
     @RequestMapping(method = RequestMethod.POST, value = "/tvshow")
-    public ResponseEntity<TVShowEntity> addTVShow(@RequestBody TVShowEntity tvshow) {
-        tvshowaction.addTVShow(tvshow);
-        int id = tvshow.getId();
-        Optional<TVShowEntity> persistedTVShow = tvshowaction.getTVShow(id);
-        if (persistedTVShow.isPresent()) {
-            return new ResponseEntity<>(persistedTVShow.get(), HttpStatus.ACCEPTED);
+    public ResponseEntity<TVShowEntity> addTVShow(@RequestBody TVShowEntity tvshow, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            tvshowaction.addTVShow(tvshow);
+            int id = tvshow.getId();
+            Optional<TVShowEntity> persistedTVShow = tvshowaction.getTVShow(id);
+            if (persistedTVShow.isPresent()) {
+                return new ResponseEntity<>(persistedTVShow.get(), HttpStatus.ACCEPTED);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -68,19 +73,23 @@ public class TVShowController {
      * @return TVShow, if borrowed
      */
     @RequestMapping(method = RequestMethod.POST, value = "/tvshow/{id}/borrow")
-    public ResponseEntity<TVShowEntity> borrowTVShow(@PathVariable int id, @RequestParam(value="username") String username) {
-        try {
-            tvshowaction.borrowTVShow(id, username);
-            Optional<TVShowEntity> tvshow = tvshowaction.getTVShow(id);
-            if (tvshow.isPresent()) {
-                return new ResponseEntity<>(tvshow.get(), HttpStatus.ACCEPTED);
-            } else {
+    public ResponseEntity<TVShowEntity> borrowTVShow(@PathVariable int id, @RequestParam(value="username") String username, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            try {
+                tvshowaction.borrowTVShow(id, username);
+                Optional<TVShowEntity> tvshow = tvshowaction.getTVShow(id);
+                if (tvshow.isPresent()) {
+                    return new ResponseEntity<>(tvshow.get(), HttpStatus.ACCEPTED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (MediaNotFoundException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (UnavailableMediaException e) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-        } catch (MediaNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (UnavailableMediaException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -91,19 +100,23 @@ public class TVShowController {
      * @return TVShow, if returned
      */
     @RequestMapping(method = RequestMethod.POST, value = "/tvshow/{id}/return")
-    public ResponseEntity<TVShowEntity> returnTVShow(@PathVariable int id, @RequestParam(value="username") String username) {
-        try {
-            tvshowaction.returnTVShow(id, username);
-            Optional<TVShowEntity> tvshow = tvshowaction.getTVShow(id);
-            if (tvshow.isPresent()) {
-                return new ResponseEntity<>(tvshow.get(), HttpStatus.ACCEPTED);
-            } else {
+    public ResponseEntity<TVShowEntity> returnTVShow(@PathVariable int id, @RequestParam(value="username") String username, @RequestParam String token) {
+        if (LoginAction.isValidToken(token)) {
+            try {
+                tvshowaction.returnTVShow(id, username);
+                Optional<TVShowEntity> tvshow = tvshowaction.getTVShow(id);
+                if (tvshow.isPresent()) {
+                    return new ResponseEntity<>(tvshow.get(), HttpStatus.ACCEPTED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (MediaNotFoundException e) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } catch (MediaAlreadyReturnedException e) {
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
-        } catch (MediaNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (MediaAlreadyReturnedException e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 }

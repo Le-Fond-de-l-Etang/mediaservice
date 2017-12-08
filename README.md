@@ -16,6 +16,8 @@ La base mediaservice doit ensuite être créée d'après la requête présente d
 ### L'application
 
 Une fois compilée, le jar de l'application doit être lancé à l'aide de java ("_java -jar mediaservice.jar_").  
+Les requêtes modifiant des données nécessitent un jeton d'authentification dans le paramètre "token" pour être autorisées. 
+Par défaut, celui-ci est "_petitkoala_".
 
 #### REST
 Un swagger est visible sur l'adresse _http://localhost:8080/swagger-ui.html_ et présente les différentes requêtes pour interagir avec les films et les séries.  

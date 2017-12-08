@@ -62,10 +62,6 @@
         </xs:complexType>
     </xs:element>
 
-
-   
-
-
     <xs:complexType name="musicList">
         <xs:sequence>
             <xs:element type="tns:music" name="music" minOccurs="0" maxOccurs="unbounded"/>

@@ -22,3 +22,9 @@ Un swagger est visible sur l'adresse _http://localhost:8080/swagger-ui.html_ et 
 Les ressources peuvent être utilisées sur les endpoints _http://localhost:8080/movie_ et _http://localhost:8080/tvshow_.
 
 #### SOAP
+
+Les services Soap sont accessibles à l'adresse _http://localhost:8080/ws_. Pour les consommer, vous pouvez utiliser un **client 
+Http** ou utiliser **Curl** via la console. Des exemples  **xml** de corps de requête sont disponibles dans le dossier **soapRequest/**.   
+_Exemple de requete :_  
+```curl --header "content-type: text/xml" -d @getMusics.xml http://localhost:8080/ws```
+
